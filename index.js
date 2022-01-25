@@ -7,12 +7,11 @@ const cors = require('cors');
 const port = process.env.PORT || 5000;
 
 
-
 admin.initializeApp({
     credential: admin.credential.cert({
         projectId: process.env.FIREBASE_PROJECT_ID,
         clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
-        privateKey: process.env.FIREBASE_PRIVATE_KEY
+        privateKey: process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n')
     }),
     databaseURL: process.env.FIREBASE_DATABASE_URL
 });
@@ -39,8 +38,6 @@ async function verifyToken(req, res, next) {
 
         }
     }
-
-
     next()
 }
 
